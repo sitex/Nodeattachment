@@ -69,7 +69,7 @@
                             $row .= $this->Html->tag('td', $attachment['Nodeattachment']['id']);
                             $row .= $this->Html->tag('td', $thumbnail);
                             $row .= $this->Html->tag('td', '(' . $file_name[1] . ')');
-                            $row .= $this->Html->tag('td', $attachment['Nodeattachment']['title']);
+                            $row .= $this->Html->tag('td', substr($attachment['Nodeattachment']['title'],0,50).'...');
                             $row .= $this->Html->tag('td', $actions);
                             echo $this->Html->tag(
                                     'tr', $row, array('class' => 'ui-state-default', 'id' => 'nodeattachments_' . $attachment['Nodeattachment']['id'])
