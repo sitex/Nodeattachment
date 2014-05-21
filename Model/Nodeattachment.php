@@ -28,7 +28,7 @@ class Nodeattachment extends NodeattachmentAppModel {
          * @param array $var
          * @return array
          */
-        public function afterSave($created = false) {
+        public function afterSave($created = false, $options = array()) {
 
                 // sitex fix 2013 06 20
                 if (! isset($this->data['Nodeattachment']['mime_type']) ) return;
