@@ -27,7 +27,8 @@ class Nodeattachment extends NodeattachmentAppModel
 	/**
 	 * After save callback
 	 *
-	 * @param array $var
+	 * @param bool|false $created
+	 * @param array      $options
 	 *
 	 * @return array
 	 */
@@ -142,7 +143,8 @@ class Nodeattachment extends NodeattachmentAppModel
 	/**
 	 * Exec ffmpeg command
 	 *
-	 * @param string ffmpeg command
+	 * @param           $cmd
+	 * @param bool|true $exec
 	 *
 	 * @return void
 	 */
@@ -185,5 +187,3 @@ class Nodeattachment extends NodeattachmentAppModel
 
 
 }
-
-?>
