@@ -77,6 +77,7 @@ class NodeattachmentHelper extends AppHelper {
        public function requestOptions($options = array()) {
                         
               $_options = array(
+                  'div' => false,
                   'update' => '#attachments-listing',
                   'before' => $this->Js->get('#loading')->effect('fadeIn', array('buffer' => false)),
                   'complete' => $this->Js->get('#loading')->effect('hide', array('buffer' => false))              

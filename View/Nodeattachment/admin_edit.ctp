@@ -4,28 +4,28 @@
 		<div class="actions" style="text-align: right;">
 
 			<?php
-			// aciton options
+			// action options
 			$options_save = $options_cancel = $this->Nodeattachment->requestOptions();
-
-			// cancel
-			$options_cancel['class'] = 'btn btn-danger';
-			echo $this->Js->link(__d('croogo', 'prev'),
-				array(
-					'plugin'     => 'nodeattachment',
-					'controller' => 'nodeattachment',
-					'action'     => 'nodeIndex',
-					$this->data['Nodeattachment']['node_id'],
-				),
-				$options_cancel
+			$url_cancel   = array(
+				'plugin'     => 'nodeattachment',
+				'controller' => 'nodeattachment',
+				'action'     => 'nodeIndex',
+				$this->data['Nodeattachment']['node_id'],
 			);
-
-
+			$options_cancel['class'] = 'btn btn-danger';
+			$options_save['class'] = 'btn btn-success';
 			?>
 
 		</div>
 	</div>
 
 	<?php echo $this->Form->create('Nodeattachment'); ?>
+
+	<?php
+	// cancel
+	echo $this->Js->submit(__d('croogo', 'Save'), $options_save);
+	echo $this->Js->link(__d('croogo', 'Cancel'), $url_cancel, $options_cancel);
+	?>
 	<fieldset>
 
 		<div id="node-basic">
@@ -46,10 +46,9 @@
 			<?php
 			echo $this->Form->input('id');
 			echo $this->Form->input('title', array('label' => __('Title', true)));
-			// echo $this->Form->input('type', array('label' => __('Category', true)));
+			echo $this->Form->input('type', array('label' => __('Category', true)));
 			// echo $this->Form->input('author', array('label' => __('Author', true)));
 			// echo $this->Form->input('author_url', array('label' => __('Author Url', true)));
-			echo $this->Form->input('type', array('type' => 'checkbox'));
 			echo $this->Form->input('description', array('label' => __('Description', true)));
 			echo $this->Form->input('status', array('label' => __('Published', true)));
 			echo $this->Form->hidden('node_id');
@@ -69,8 +68,8 @@
 
 
 	// save
-	$options_save['class'] = 'btn btn-primary';
-	echo $this->Js->submit(__d('croogo', 'Save file'), $options_save);
+	echo $this->Js->submit(__d('croogo', 'Save'), $options_save);
+	echo $this->Js->link(__d('croogo', 'Cancel'), $url_cancel, $options_cancel);
 
 	echo $this->Js->writeBuffer();
 
