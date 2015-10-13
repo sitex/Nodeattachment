@@ -404,7 +404,8 @@ class NodeattachmentController extends NodeattachmentAppController {
                   'ods' => 'application/vnd.oasis.opendocument.spreadsheet',
               );
 
-              $ext = strtolower(array_pop(explode('.', $file)));
+              $file_parts = explode('.', $file);
+              $ext = strtolower(array_pop($file_parts));
               if (array_key_exists($ext, $mime_types)) {
                      return $mime_types[$ext];
               } elseif (function_exists('finfo_open')) {
