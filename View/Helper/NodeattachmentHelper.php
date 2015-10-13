@@ -17,6 +17,7 @@ class NodeattachmentHelper extends AppHelper {
        public $helpers = array(
            'Js' => array('Jquery'),
            'Html',
+           'Nodes',
            'Layout',
            'Image2',
        );
@@ -63,7 +64,7 @@ class NodeattachmentHelper extends AppHelper {
               foreach ($this->attachment_types as $type) {
                      $attachments[$type] = $this->extractMimeType($this->Layout->node, $type);
               }
-              // $this->Layout->node['Nodeattachments'] = $attachments;
+              $this->Nodes->field('Nodeattachment', $attachments);
        }
 
        /**
@@ -259,8 +260,7 @@ class NodeattachmentHelper extends AppHelper {
         * @return array
         */
        public function getAttachments($type = 'image') {
-
-              return $this->Layout->node['Nodeattachments'][$type];
+              return $this->Layout->node['Node']['Nodeattachment'][$type];
        }
 
        /**
