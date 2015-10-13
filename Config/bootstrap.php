@@ -21,7 +21,12 @@
             'children' => array(
                 'settings' => array(
                     'title' => __('Configure'),
-                    'url' => array('plugin' => '', 'controller' => 'settings', 'action' => 'prefix', 'Nodeattachment')
+                    'url' => array(
+                        'plugin' => 'settings',
+                        'controller' => 'settings',
+                        'action' => 'prefix',
+                        'Nodeattachment'
+                    )
                 )
             )
         ));
