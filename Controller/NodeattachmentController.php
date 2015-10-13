@@ -359,7 +359,6 @@ class NodeattachmentController extends NodeattachmentAppController {
                   'json' => 'application/json',
                   'xml' => 'application/xml',
                   'swf' => 'application/x-shockwave-flash',
-                  'flv' => 'video/x-flv',
                   // images
                   'png' => 'image/png',
                   'jpe' => 'image/jpeg',
