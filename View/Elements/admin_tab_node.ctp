@@ -1,3 +1,9 @@
+<?php
+// sitex: append jquery-ui
+$this->append('css');
+    echo $this->Html->css(array('/croogo/ui-themes/smoothness/jquery-ui'));
+$this->end();
+?>
 <div id="storage-uploader">
 <?php
 $upload_dir = Configure::read('Nodeattachment.storageUploadDir');
