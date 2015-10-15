@@ -89,7 +89,7 @@ class NodeattachmentController extends NodeattachmentAppController
 	/**
 	 * Node attachment index
 	 *
-	 * @param  integer $id Node id
+	 * @param  integer $node_id Node id
 	 *
 	 * @return void
 	 */
@@ -176,8 +176,6 @@ class NodeattachmentController extends NodeattachmentAppController
 	/**
 	 * Attach storage file
 	 *
-	 * @param string $file_path
-	 *
 	 * @return void
 	 */
 	public function admin_addStorageFile()
@@ -259,11 +257,11 @@ class NodeattachmentController extends NodeattachmentAppController
 	/**
 	 * Unique filebname for upload
 	 *
-	 * @param string $fileName
+	 * @param array $file
 	 *
 	 * @return array
 	 */
-	private function __uniqeSlugableFilename($file = null)
+	private function __uniqeSlugableFilename($file = array())
 	{
 
 		while (file_exists($this->uploads_path . DS . $file['name'] . '.' . $file['ext'])) {
