@@ -109,7 +109,7 @@ class NodeattachmentController extends NodeattachmentAppController
 			'order'      => array('priority ASC', 'created ASC')
 		));
 		$this->set(compact('attachments'));
-		$this->disableCache();
+		$this->response->disableCache();
 	}
 
 	/**
@@ -167,7 +167,7 @@ class NodeattachmentController extends NodeattachmentAppController
 		}
 
 		Configure::write('debug', 0);
-		$this->disableCache();
+		$this->response->disableCache();
 		$this->autoRender = false;
 		echo htmlspecialchars(json_encode($result), ENT_NOQUOTES);
 
@@ -315,7 +315,7 @@ class NodeattachmentController extends NodeattachmentAppController
 	public function admin_sort()
 	{
 		Configure::write('debug', 0);
-		$this->disableCache();
+		$this->response->disableCache();
 
 		$ids = $this->request->data['nodeattachments'];
 		foreach ($ids as $position => $id) {
@@ -556,5 +556,3 @@ class NodeattachmentController extends NodeattachmentAppController
 	}
 
 }
-
-?>
