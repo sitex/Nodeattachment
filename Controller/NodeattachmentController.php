@@ -135,7 +135,7 @@ class NodeattachmentController extends NodeattachmentAppController
 			// don't overwrite previous files that were uploaded and slug filename
 			$file['name'] = Inflector::slug($uploadedFile['filename']);
 			$file['ext']  = $uploadedFile['ext'];
-			$file         = $this->__uniqeSlugableFilename($file);
+			$file         = $this->__uniqueSlugableFilename($file);
 
 			$fileName = $file['name'] . '.' . $file['ext'];
 
@@ -199,7 +199,7 @@ class NodeattachmentController extends NodeattachmentAppController
 			// don't overwrite previous files that were uploaded and slug filename
 			$file['name'] = Inflector::slug($File->name());
 			$file['ext']  = $File->ext();
-			$file         = $this->__uniqeSlugableFilename($file);
+			$file         = $this->__uniqueSlugableFilename($file);
 
 			$file_name = $file['name'] . '.' . $file['ext'];
 
@@ -261,7 +261,7 @@ class NodeattachmentController extends NodeattachmentAppController
 	 *
 	 * @return array
 	 */
-	private function __uniqeSlugableFilename($file = array())
+	private function __uniqueSlugableFilename($file = array())
 	{
 
 		while (file_exists($this->uploads_path . DS . $file['name'] . '.' . $file['ext'])) {
@@ -298,7 +298,7 @@ class NodeattachmentController extends NodeattachmentAppController
 	public function admin_delete($id = null)
 	{
 		if (!$id) {
-			// wrond id, redirect
+			// wrong id, redirect
 		}
 		$attachment = $this->Nodeattachment->read(null, $id);
 		if (!$this->Nodeattachment->delete($id)) {
