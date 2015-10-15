@@ -1,8 +1,5 @@
 <?php
 
-
-App::uses('Croogo', 'Lib');
-
 /**
  * Description of nodeattachments_controller
  *
@@ -53,7 +50,7 @@ class NodeattachmentController extends NodeattachmentAppController {
         *
         * @var string
         */
-       public $uploads_dir = 'uploads/source';
+       public $uploads_dir = 'uploads';
 
        /**
         * Before filter callback,
@@ -121,33 +118,30 @@ class NodeattachmentController extends NodeattachmentAppController {
 
               $allowedExtensions = explode(',', Configure::read('Nodeattachment.allowedFileTypes'));
               $sizeLimit = Configure::read('Nodeattachment.maxFileSize') * 1024 * 1024;
-
-              // new folder
-              App::uses('Folder', 'Utility');
-              $folder = new Folder();
-              $folder->create( WWW_ROOT . DS . $this->uploads_dir . DS . $parentNodeId );
-
-              // upload file
               App::import('Vendor', 'Nodeattachment.fileuploader');
               $Uploader = new qqFileUploader($allowedExtensions, $sizeLimit);
 
-              $result = $Uploader->handleUpload($this->uploads_path . DS . $parentNodeId . DS);
+              $result = $Uploader->handleUpload($this->uploads_path . DS);
               $uploadedFile = $Uploader->getFilename();
 
               if (isset($parentNodeId) && ($uploadedFile != false)) {
 
-                     $fileName = Inflector::slug($uploadedFile['filename']);
-                     $fileName .= '.' . $uploadedFile['ext'];
-                     $fileName = $this->__uniqeSlugableFilename($fileName);
+	              // don't overwrite previous files that were uploaded and slug filename
+	              $file['name'] = Inflector::slug($uploadedFile['filename']);
+	              $file['ext'] = $uploadedFile['ext'];
+	              $file = $this->__uniqeSlugableFilename($file);
 
-                     $uploadPath = $this->uploads_path . DS . $parentNodeId . DS . $uploadedFile['filename'] . '.' . $uploadedFile['ext'];
-                     $newPath    = $this->uploads_path . DS . $parentNodeId . DS . $fileName;
+	              $fileName = $file['name'] . '.' . $file['ext'];
+
+                     $uploadPath = $this->uploads_path . DS .
+                             $uploadedFile['filename'] . '.' . $uploadedFile['ext'];
+                     $newPath = $this->uploads_path . DS . $fileName;
                      rename($uploadPath, $newPath);
 
                      $data = array(
                          'node_id' => $parentNodeId,
                          'slug' => $fileName,
-                         'path' => '/' . $this->uploads_dir . '/' . $parentNodeId . '/' . $fileName,
+                         'path' => '/' . $this->uploads_dir . '/' . $fileName,
                          'title' => $fileName,
                          'status' => 1,
                          'mime_type' =>
@@ -181,7 +175,6 @@ class NodeattachmentController extends NodeattachmentAppController {
         */
        public function admin_addStorageFile() {
 
-              App::import('Core', 'File');
               $this->layout = 'ajax';
               $notice = array();
 
@@ -260,14 +253,12 @@ class NodeattachmentController extends NodeattachmentAppController {
         * @param string $fileName
         * @return array
         */
-       private function __uniqeSlugableFilename($fileName = null) {
+       private function __uniqeSlugableFilename($file = null) {
 
-              $file = pathinfo($fileName);
-              while (file_exists($this->uploads_path . DS . $file['filename'] . '.' . $file['extension'])) {
-                     $file['filename'] .= rand(10, 99);
+              while (file_exists($this->uploads_path . DS . $file['name'] . '.' . $file['ext'])) {
+                     $file['name'] .= rand(10, 99);
               }
-              $fileName = $file['filename'].'.'.$file['extension'];
-              return $fileName;
+              return $file;
        }
 
        /**
